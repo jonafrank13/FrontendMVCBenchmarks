@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<meta charset=utf-8 />
+	<title>Vue Performance test</title>
+</head>
+<body>
+	<div id="app">
+		<h2>Hello Vue!</h2>
+		<button v-on:click="render()">Render</button>
+		Total items: {{items.length}}
+		<ul>
+			<li v-for="item in items">
+				{{item.number}}
+				<input v-model="item.number">
+			</li>
+		</ul>
+	</div> 
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		var view = new Vue({
+			  el: '#app',
+			  data: {
+			    items: []
+			  },
+			  methods: {
+			    render: function () {
+			      for(var i = 0; i < 4000; i++) {
+			        this.items.push({number: i});
+			      }
+			    }
+			  }
+			});
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta charset=utf-8 />
+<title>React Performance test</title>
+</head>
+<body>
+  <div id="app"></div> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
+  <script type="text/javascript">
+	'use strict';
+
+	var items = [];
+	var DemoComponent = React.createClass({
+	displayName: 'DemoComponent',
+
+	start: function start() {
+	    for (var i = 0; i < 4000; i++) {
+	        items.push({
+	            number: i
+	        });
+	    }
+	    this.setState(items);
+	},
+	handleChange: function handleChange(event) {
+	    items[event.target.defaultValue] = { 'number': event.target.value };
+	    this.setState(items);
+	},
+	render: function render() {
+	    var _this = this;
+
+	    return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	            'h2',
+	            null,
+	            'Hello React!'
+	        ),
+	        React.createElement(
+	            'button',
+	            { onClick: this.start },
+	            'Render'
+	        ),
+	        ' Total Items : ',
+	        items.length,
+	        React.createElement(
+	            'ul',
+	            null,
+	            items.map(function (item) {
+	                return React.createElement(
+	                    'li',
+	                    null,
+	                    item.number,
+	                    React.createElement('input', { type: 'text', onChange: _this.handleChange, defaultValue: item.number })
+	                );
+	            })
+	        )
+	    );
+	}
+	});
+	React.render(React.createElement(DemoComponent, null), document.getElementById('app'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Ember Performance test</title>
+</head>
+<body>
+  <script type="text/x-handlebars">
+    <h2>Hello Ember!</h2>
+    <button {{action 'appendItems'}}>Render</button>
+    Total items: {{model.length}}
+    <ul>
+      {{#each item in controller}}
+      <li>
+        {{item.number}}
+        {{input value=item.number}}
+      </li>
+      {{/each}}
+    </ul>
+  </script> 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.6.1/ember.min.js"></script>
+  <script type="text/javascript">
+    App = Ember.Application.create();
+    App.ApplicationController = Ember.ArrayController.extend({  
+      actions:{
+        appendItems: function(){
+          var items = [];
+          for(var i = 0; i < 4000; i++) {
+            items.push({number: i});
+          }
+          this.get('model').pushObjects(items);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

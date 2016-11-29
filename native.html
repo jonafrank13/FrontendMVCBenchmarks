@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta charset=utf-8 />
+<title>Native Performance test</title>
+</head>
+<body>
+  <div>
+    <h2>Hello Native JS!</h2>
+    <button onclick="render()">Render</button>
+    Total items: <span id="total_count"></span>
+    <ul id="container"></ul>
+  </div>
+  <script type="text/javascript">  	
+	function render() {
+	  var i = 0;
+	  var content = '';
+	  for(i = 0; i < 4000; i++) {
+	     content += "<li><span>"+i+"</span><input type='text' onkeydown='update(this)' value='"+i+"'></input></li>"
+	  }
+	  document.getElementById("container").innerHTML = content;
+	  document.getElementById('total_count').innerHTML = i;
+	}
+	function update(element) {
+	  element.previousSibling.innerHTML = element.value;
+	}
+  </script>
+</body>
+</html>
